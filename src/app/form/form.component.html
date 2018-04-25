@@ -1,3 +1,35 @@
-<p>
-  form works!
-</p>
+<div class="container">
+  <div class="col-md-4 col-md-offset-4">
+      <form (ngSubmit)="StaffRegister()">
+          <h4 class="text-center text-primary">Форма для загрузки 360 картинки</h4>
+        
+          <hr>
+        
+          <div class="form-group" [ngClass]="{'has-error': registerForm.get('login').errors && registerForm.get('login').touched}">
+            <input type="text" class="form-control" placeholder="Логин" formControlName="login">
+            <span class="help-block" *ngIf="registerForm.get('login').hasError('required') && registerForm.get('login').touched">
+              Введите логин
+            </span>
+          </div>
+        
+          <div class="form-group" [ngClass]="{'has-error': registerForm.get('familyName').errors && registerForm.get('familyName').touched}">
+            <input type="text" class="form-control" placeholder="Фамилия" formControlName="familyName">
+            <span class="help-block" *ngIf="registerForm.get('familyName').hasError('required') && registerForm.get('familyName').touched">
+              Введите фамилию
+            </span>
+          </div>
+        
+          <div class="form-group" [ngClass]="{'has-error': registerForm.get('name').errors && registerForm.get('name').touched}">
+            <input type="text" class="form-control" placeholder="Имя" formControlName="name">
+            <span class="help-block" *ngIf="registerForm.get('name').hasError('required') && registerForm.get('name').touched">
+              Введите имя
+            </span>
+          </div>
+           
+          <div class="form-group text-center">
+            <button class="btn btn-success" [disabled]="!registerForm.valid" type="submit">Зарегистрировать</button>
+          </div>
+        </form>
+  </div>
+</div>
+
