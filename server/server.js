@@ -5,7 +5,7 @@ const http = require('http');
 const bodyParser = require('body-parser');
 
 // Get our API routes
-const api = require('./server/routes/api');
+const api = require('../server/routes/api');
 
 const app = express();
 
@@ -14,7 +14,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Point static path to dist
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, '../dist')));
+app.use('/uploads', express.static(path.join(__dirname, '../server/uploads')));
 
 app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
