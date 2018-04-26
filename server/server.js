@@ -3,6 +3,40 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
+const Sequelize = require('sequelize');
+
+const connection = new Sequelize('postgres', 'postgres', 'password', {
+  dialect: 'postgres',
+  host: "localhost",
+  port: 5432 
+});
+
+connection
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+
+const PanoImg = connection.define('panoImg', {
+  name: {
+    type: Sequelize.STRING
+  },
+  url: {
+    type: Sequelize.STRING
+  },
+  rotationSpeed: {
+    type: Sequelize.INTEGER
+  },
+  manualRotation: {
+    type: Sequelize.BOOLEAN
+  }
+});
+
+// force: true will drop the table if it already exists
+PanoImg.sync({force: true});
 
 // Get our API routes
 const api = require('../server/routes/api');
