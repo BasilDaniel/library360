@@ -5,6 +5,7 @@
 /dist-server
 /tmp
 /out-tsc
+/server/uploads
 
 # dependencies
 /node_modules
