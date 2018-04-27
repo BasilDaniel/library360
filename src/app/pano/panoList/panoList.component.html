@@ -1,3 +1,10 @@
 <p>
   panoList works!
 </p>
+<ul *ngFor="let item of panoramas">
+  <li>{{item.id}}</li>
+  <li>{{item.name}}</li>
+  <li>{{item.url}}</li>
+  <li>{{item.rotationSpeed}}</li>
+  <li>{{item.manualRotation}}</li>
+</ul>

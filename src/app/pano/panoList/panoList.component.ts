@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from '../../_services/http.service';
 
 @Component({
   selector: 'app-panoList',
@@ -6,10 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./panoList.component.css']
 })
 export class PanoListComponent implements OnInit {
+  panoramas = {};
 
-  constructor() { }
+  constructor(private httpService: HttpService) { }
 
   ngOnInit() {
+    this.loadPanoramas();
+  }
+
+  loadPanoramas(){
+    this.httpService.getPanoramas()
+    .subscribe((data) => { 
+      this.panoramas = data;     
+      console.log(data);
+    })  
   }
 
 }

@@ -1,54 +1,82 @@
-const express = require('express');
-const path = require('path');
-const router = express.Router();
-const multer = require('multer');
+module.exports = function(app, db){
+  const multer = require('multer');
+  const path = require('path');
 
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads')
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-  }
-});
-
-var upload = multer({ 
-  storage: storage,
-  fileFilter: function(reg , file, cb){
-    const filetypes = /jpeg|jpg|png|gif/;
-    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-    const mimetype = filetypes.test(file.mimetype);
-    if(extname && mimetype){
-      return cb(null, true);
+  var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './uploads')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
-    else{
-      cb('Error: Images Only');
+  });
+  
+  var upload = multer({ 
+    storage: storage,
+    fileFilter: function(reg , file, cb){
+      const filetypes = /jpeg|jpg|png|gif/;
+      const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+      const mimetype = filetypes.test(file.mimetype);
+      if(extname && mimetype){
+        return cb(null, true);
+      }
+      else{
+        cb('Error: Images Only');
+      }
     }
-  }
- })
-
-/* GET api listing. */
-router.get('/', (req, res, next) => {
-  res.status(200).json({
-    message: 'api GET works'
+   })
+  
+  /* GET api listing. */
+  app.get('/api/', (req, res, next) => {
+    db.panoImg.findAll({}).then((result) => {
+      res.status(200).json(result);
+    });    
   });
-});
-
-router.get('/:panoId', (req, res, next) => {
-  const id = req.params.panoId;
-  res.status(200).json({
-    message: 'api GET:panoId works',
-    id: id
+  
+  app.get('/api/:panoId', (req, res, next) => {
+    db.panoImg.find({
+      where: {
+        id: req.params.panoId
+      }      
+    }).then((result) => {
+      res.status(200).json(result);
+    })
+    .catch(err => {
+      res.status(404).json({
+          error: err
+      });
   });
-});
-
-router.post('/', upload.single('panoImage'), (req, res, next) => {
-  console.log(req.file);
-  res.status(201).json({
-    message: 'api POST works',
-    name: req.body.name,
-    imagePath: req.file.path
   });
-});
+  
+  app.post('/api/', upload.single('panoImage'), (req, res, next) => {
+    db.panoImg.create({
+      name: req.body.name,
+      url: req.file.path,
+      rotationSpeed: req.body.rotationSpeed,
+      manualRotation: req.body.manualRotation
+    }).then((result) => {
+      console.log(req.file);
+      res.status(201).json(result);
+    })
+    .catch(err => {
+      res.status(500).json({
+          error: err
+      });
+  });
+  });
 
-module.exports = router;
+  app.delete('/api/:panoId', (req, res, next) => {
+    db.panoImg.destroy({
+      where: {
+        id: req.params.panoId
+      }
+    }).then((result) => {
+      res.status(200).json(result);
+    })
+    .catch(err => {
+      res.status(500).json({
+          error: err
+      });
+  });
+  });
+}

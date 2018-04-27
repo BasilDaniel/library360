@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
 import { NavComponent } from './nav/nav.component';
 import { HttpService } from './_services/http.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { HttpService } from './_services/http.service';
 ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    HttpClientModule
   ],
   providers: [
     HttpService
