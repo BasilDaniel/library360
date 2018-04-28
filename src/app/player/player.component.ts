@@ -18,8 +18,10 @@ export class PlayerComponent implements OnInit {
       this.panoImg = data['panoImg'];
       console.log(this.panoImg);
       let imgSrc = this.panoImg.url.replace(/\//, '/');
+      let rotationSpeed = this.panoImg.rotationSpeed * 10000;
       document.querySelector('a-sky').setAttribute('src', imgSrc);
-
+      document.querySelector('a-camera').setAttribute('look-controls-enabled', this.panoImg.manualRotation);
+      document.querySelector('a-animation').setAttribute('dur', rotationSpeed.toString());
     });
 
   }
