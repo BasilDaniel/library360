@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../_services/http.service';
+import { NameFilterPipe } from '../nameFilter.pipe'
+import { NgForm } from "@angular/forms";
 
 @Component({
   selector: 'app-panoList',
@@ -8,6 +10,8 @@ import { HttpService } from '../_services/http.service';
 })
 export class PanoListComponent implements OnInit {
   panoramas: any;
+  args: any;
+  check: any;
 
   constructor(private httpService: HttpService) { }
 

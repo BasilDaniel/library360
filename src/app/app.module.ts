@@ -13,6 +13,8 @@ import { appRoutes } from './routes';
 import { NavComponent } from './nav/nav.component';
 import { HttpService } from './_services/http.service';
 import { HttpClientModule } from '@angular/common/http';
+import { NameFilterPipe } from './nameFilter.pipe';
+import { CheckedPipe } from './checked.pipe';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { HttpClientModule } from '@angular/common/http';
     FormComponent,
     PlayerComponent,
     PanoListComponent,
-    NavComponent
+    NavComponent,
+    NameFilterPipe,
+    CheckedPipe
 ],
   imports: [
     BrowserModule,

@@ -4,11 +4,11 @@
 
     <form>
       <div class="form-group">
-        <input type="text" class="form-control" id="name" placeholder="Название">
+        <input type="text" placeholder="Название" name="name" [(ngModel)]="args">
       </div>
       <div class="checkbox">
         <label>
-          <input type="checkbox"> Ручное вращение
+          <input type="checkbox" name="checkbox" name="check" [(ngModel)]="check"> Ручное вращение
         </label>
       </div>
     </form>
@@ -22,7 +22,7 @@
           <th>Ссылка</th>
         </tr>
       </thead>
-      <tbody *ngFor="let item of panoramas">
+      <tbody *ngFor="let item of panoramas | nameFilter:args | checked:check">
         <tr>
           <td>{{item.name}}</td>
           <td>{{item.rotationSpeed}}</td>

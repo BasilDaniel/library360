@@ -50,5 +50,6 @@ export class FormComponent implements OnInit {
 
     this.http.postPano(model);
     form.reset();
+    this.img = null;
   }
 }
