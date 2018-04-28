@@ -1,3 +1,23 @@
 <p>
-  player works!
+  Loading ...
 </p>
+<a-scene style="position: inherit">
+
+  <a-assets>
+      <img id="image"
+        src="">
+  </a-assets>   
+
+  <a-sky src="#image"></a-sky>
+
+  <a-camera id="acamera" look-controls-enabled="true">
+      <a-animation id="aanimation" attribute="rotation"
+          dur="50000"
+          fill="forwards"
+          to="0 360 0"
+          repeat="indefinite"
+          easing="linear">
+      </a-animation>
+  </a-camera>
+
+</a-scene>

@@ -1,35 +1,47 @@
 <div class="container">
   <div class="col-md-4 col-md-offset-4">
-      <form (ngSubmit)="StaffRegister()">
-          <h4 class="text-center text-primary">Форма для загрузки 360 картинки</h4>
-        
-          <hr>
-        
-          <div class="form-group" [ngClass]="{'has-error': registerForm.get('login').errors && registerForm.get('login').touched}">
-            <input type="text" class="form-control" placeholder="Логин" formControlName="login">
-            <span class="help-block" *ngIf="registerForm.get('login').hasError('required') && registerForm.get('login').touched">
-              Введите логин
-            </span>
-          </div>
-        
-          <div class="form-group" [ngClass]="{'has-error': registerForm.get('familyName').errors && registerForm.get('familyName').touched}">
-            <input type="text" class="form-control" placeholder="Фамилия" formControlName="familyName">
-            <span class="help-block" *ngIf="registerForm.get('familyName').hasError('required') && registerForm.get('familyName').touched">
-              Введите фамилию
-            </span>
-          </div>
-        
-          <div class="form-group" [ngClass]="{'has-error': registerForm.get('name').errors && registerForm.get('name').touched}">
-            <input type="text" class="form-control" placeholder="Имя" formControlName="name">
-            <span class="help-block" *ngIf="registerForm.get('name').hasError('required') && registerForm.get('name').touched">
-              Введите имя
-            </span>
-          </div>
-           
-          <div class="form-group text-center">
-            <button class="btn btn-success" [disabled]="!registerForm.valid" type="submit">Зарегистрировать</button>
-          </div>
-        </form>
+    <form (ngSubmit)="upload(form)" #form="ngForm">
+      <h4 class="text-center text-primary">Форма для загрузки 360 картинки</h4>
+
+      <hr>
+
+      <div class="form-group">
+        <label for="imgName">Название картинки</label>
+        <input id="imgName" type="text" class="form-control" #name="ngModel" placeholder="Название картинки" required minlength="3"
+          maxlength="60" name="name" ngModel>
+        <div class="alert alert-danger" *ngIf="name.touched && !name.valid">
+          <div *ngIf="name.errors.required">Введите название</div>
+          <div *ngIf="name.errors.minlength">Минимум 3 символа</div>
+          <div *ngIf="name.errors.maxlength">Максимум 60 символов</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="rotationSpeed">Скорость вращения</label>
+        <select id="rotationSpeed" class="form-control" #rotationSpeed="ngModel" required name="rotationSpeed" ngModel>
+          <option *ngFor="let item of speed">
+            {{item}}
+          </option>
+        </select>
+        <div class="alert alert-danger" *ngIf="rotationSpeed.touched && !rotationSpeed.valid">Выберите скорость</div>
+      </div>
+
+      <div class="form-group">
+        <label for="file">Выберите файл</label>
+        <input id="file" type="file" (change)="onFileSelected($event)" required name="file" name="file" ngModel>
+      </div>
+
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" required name="manualRotation" ngModel> Ручное вращение
+        </label>
+      </div>
+
+      <div class="form-group text-center">
+        <button class="btn btn-success" type="submit">Загрузить</button>
+      </div>
+    </form>
+
+    <img src={{img}} alt="360" class="img-rounded" width="100%">
   </div>
 </div>
-

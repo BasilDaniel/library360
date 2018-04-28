@@ -1,12 +1,13 @@
+import { PanoImgResolver } from './_resolvers/panoImg.resolver';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
 import { FormComponent } from './form/form.component';
 import { PlayerComponent } from './player/player.component';
-import { PanoComponent } from './pano/pano/pano.component';
-import { PanoListComponent } from './pano/panoList/panoList.component';
+import { PanoListComponent } from './panoList/panoList.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
 import { NavComponent } from './nav/nav.component';
@@ -19,18 +20,20 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     FormComponent,
     PlayerComponent,
-    PanoComponent,
     PanoListComponent,
     NavComponent
 ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
-    HttpService
+    HttpService,
+    PanoImgResolver
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }
