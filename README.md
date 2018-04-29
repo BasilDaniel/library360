@@ -3,6 +3,8 @@
 
 ## Build
 
+Run npm install
+
 Run PostgresSQL server localy, bulid postgresql database with parameters
 
     "username": "postgres",
