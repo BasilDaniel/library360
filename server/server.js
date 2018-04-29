@@ -12,6 +12,13 @@ const db = require('../server/models')
 // Get API routes
 const api = require('../server/routes/api');
 
+const fs = require('fs');
+const dir = '../server/uploads';
+
+if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+}
+
 // Parsers for POST data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
