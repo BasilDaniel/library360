@@ -11,9 +11,10 @@ Run PostgresSQL server localy, bulid postgresql database with parameters
     "password": "password",
     "database": "postgres"
 
-Run `ng build` in project folder to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `ng build` in project folder to build the project. 
 
 Run `node server` in server folder
 
 Navigate to `http://localhost:3000/`. 
 
+Uploaded images should be equirectangular 
